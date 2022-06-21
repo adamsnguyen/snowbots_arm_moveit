@@ -34,25 +34,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Setting up source list
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN apt-get update
+RUN apt update
 
 # Installing moveit packages
 RUN apt install -y ros-melodic-moveit
 
-# setup entrypoint
-COPY ./ros_entrypoint.sh /
-
 # Installing ROS Build stuff...
-RUN apt-get update && sudo apt-get -y install build-essential
+RUN apt install -y build-essential
 RUN apt install -y rviz python-rosdep ros-melodic-joy ros-melodic-joint-state-publisher vim \
     ros-melodic-robot-state-publisher ros-melodic-joystick-drivers ros-melodic-joy
-RUN apt-get install -y bluez libusb-dev zip unzip dialog build-essential \
+RUN apt install -y bluez libusb-dev zip unzip dialog build-essential \
     pyqt4-dev-tools libusb-dev libbluetooth-dev python-dbus dbus
 
 
-WORKDIR /workfiles/ros_arm_ws
+WORKDIR /workfiles/snowbots_arm/
+
+# setup entrypoint
+COPY ./ros_entrypoint.sh /
 
 COPY moveitjoy_module.py /opt/ros/kinetic/lib/python2.7/dist-packages/moveit_ros_visualization/moveitjoy_module.py
-
+# RUN echo "source /opt/ros/melodic/devel/setup.bash" >> ~/.bashrc
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
+
+RUN apt-get install ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-urdf-tutorial

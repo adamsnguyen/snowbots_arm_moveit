@@ -2,8 +2,11 @@
 set -e
 
 # setup ros environment
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
-source "/opt/ros/$ROS_DISTRO/setup.bash"
+source /opt/ros/$ROS_DISTRO/setup.bash
+rm -rf ./devel ./build
+catkin_make
+echo "source /workfiles/snowbots_arm/devel/setup.bash" >> ~/.bashrc
+source /workfiles/snowbots_arm/devel/setup.bash
 
 # start services
 service dbus start
