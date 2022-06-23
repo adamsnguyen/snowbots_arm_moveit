@@ -42,10 +42,9 @@ RUN apt install -y ros-melodic-moveit
 # Installing ROS Build stuff...
 RUN apt install -y build-essential
 RUN apt install -y rviz python-rosdep ros-melodic-joy ros-melodic-joint-state-publisher vim \
-    ros-melodic-robot-state-publisher ros-melodic-joystick-drivers ros-melodic-joy
+    ros-melodic-robot-state-publisher ros-melodic-joystick-drivers ros-melodic-joy 
 RUN apt install -y bluez libusb-dev zip unzip dialog build-essential \
-    pyqt4-dev-tools libusb-dev libbluetooth-dev python-dbus dbus
-
+    pyqt4-dev-tools libusb-dev libbluetooth-dev python-dbus dbus 
 
 WORKDIR /workfiles/snowbots_arm/
 
@@ -57,4 +56,4 @@ COPY moveitjoy_module.py /opt/ros/kinetic/lib/python2.7/dist-packages/moveit_ros
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 
-RUN apt-get install ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-urdf-tutorial
+RUN apt install -y ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-urdf-tutorial
