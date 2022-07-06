@@ -802,8 +802,8 @@ class MoveitJoy:
             self.prev_time = now
         # sync start state to the real robot state
         self.counter = self.counter + 1
-        if self.counter % 10:
-            self.update_start_state_pub.publish(Empty())
+        #if self.counter % 10:
+        #    self.update_start_state_pub.publish(Empty())
         self.pre_pose = new_pose
         self.marker_lock.release()
         # update self.initial_poses

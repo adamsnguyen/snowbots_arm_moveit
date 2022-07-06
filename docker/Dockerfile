@@ -52,8 +52,18 @@ WORKDIR /workfiles/snowbots_arm/
 COPY ./ros_entrypoint.sh /
 
 COPY moveitjoy_module.py /opt/ros/kinetic/lib/python2.7/dist-packages/moveit_ros_visualization/moveitjoy_module.py
-# RUN echo "source /opt/ros/melodic/devel/setup.bash" >> ~/.bashrc
+RUN apt install -y ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-urdf-tutorial
+
+#RUN echo "source /opt/ros/melodic/devel/setup.bash" >> /root/.bashrc
+RUN echo "source /workfiles/snowbots_arm/devel/setup.bash" >> /root/.bashrc
+RUN echo "alias moveit=\"roslaunch snowbot_arm_moveit_configs demo.launch\"" >> /root/.bashrc
+RUN echo "alias rosjoy=\"roslaunch snowbot_arm_moveit_configs joystick_control.launch\"" >> /root/.bashrc
+RUN echo "alias movset=\"roslaunch moveit_setup_assistant setup_assistant.launch\"" >> /root/.bashrc
+
+COPY moveitjoy_module.py /opt/ros/melodic/lib/python2.7/dist-packages/moveit_ros_visualization/moveitjoy_module.py
+
+
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 
-RUN apt install -y ros-melodic-ros-control ros-melodic-ros-controllers ros-melodic-urdf-tutorial
+
